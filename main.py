@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from turtle import title
 from PIL import Image, ImageTk
+from student import Student
 
 class Face_Recognition_System:
     def __init__(self,root):
@@ -54,10 +55,10 @@ class Face_Recognition_System:
         img4 = img4.resize((150,150),Image.ANTIALIAS)
         self.photoing4 = ImageTk.PhotoImage(img4)
         
-        b1 = Button(bg_img, image = self.photoing4, cursor = "hand2")
+        b1 = Button(bg_img, image = self.photoing4, command=self.student_details, cursor = "hand2")
         b1.place(x=120, y = 100, width = 150, height = 150)
         
-        b1_1 = Button(bg_img, text = "Student Details", cursor = "hand2", font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
+        b1_1 = Button(bg_img, text = "Student Details", command=self.student_details, cursor = "hand2", font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
         b1_1.place(x=120, y = 210, width = 150, height = 40)
         
         
@@ -143,6 +144,13 @@ class Face_Recognition_System:
         
         b1_1 = Button(bg_img, text = "Exit", cursor = "hand2", font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
         b1_1.place(x=950, y = 410, width = 150, height = 40)
+        
+        
+    #Function button
+    def student_details(self):
+        self.new_window=Toplevel(self.root)
+        self.app=Student(self.new_window)
+        
         
 
 if __name__ == "__main__":

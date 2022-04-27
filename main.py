@@ -3,6 +3,8 @@ from tkinter import ttk
 from turtle import title
 from PIL import Image, ImageTk
 from student import Student
+import os
+from train import Train
 
 class Face_Recognition_System:
     def __init__(self,root):
@@ -12,7 +14,7 @@ class Face_Recognition_System:
         
         
         #1st img
-        img = Image.open(r"H:\Face_Recognition_System\college_images\DHV1.jpg")
+        img = Image.open(r"college_images\DHV1.jpg")
         img = img.resize((400,100),Image.ANTIALIAS)
         self.photoing = ImageTk.PhotoImage(img)
         
@@ -21,7 +23,7 @@ class Face_Recognition_System:
         
         
         #2nd img
-        img1 = Image.open(r"H:\Face_Recognition_System\college_images\facialrecognition.png")
+        img1 = Image.open(r"college_images\facialrecognition.png")
         img1 = img1.resize((400,100),Image.ANTIALIAS)
         self.photoing1 = ImageTk.PhotoImage(img1)
         
@@ -30,7 +32,7 @@ class Face_Recognition_System:
         
         
         #3rd img
-        img2 = Image.open(r"H:\Face_Recognition_System\college_images\DHV2.jpg")
+        img2 = Image.open(r"college_images\DHV2.jpg")
         img2 = img2.resize((400,100),Image.ANTIALIAS)
         self.photoing2 = ImageTk.PhotoImage(img2)
         
@@ -39,7 +41,7 @@ class Face_Recognition_System:
         
         
         #bg img
-        img3 = Image.open(r"H:\Face_Recognition_System\college_images\bgimg.jpg")
+        img3 = Image.open(r"college_images\bgimg.jpg")
         img3 = img3.resize((1200,600),Image.ANTIALIAS)
         self.photoing3 = ImageTk.PhotoImage(img3)
         
@@ -51,7 +53,7 @@ class Face_Recognition_System:
         
         
         #stu button
-        img4 = Image.open(r"H:\Face_Recognition_System\college_images\student.jpg")
+        img4 = Image.open(r"college_images\student.jpg")
         img4 = img4.resize((150,150),Image.ANTIALIAS)
         self.photoing4 = ImageTk.PhotoImage(img4)
         
@@ -63,7 +65,7 @@ class Face_Recognition_System:
         
         
         #detection button
-        img5 = Image.open(r"H:\Face_Recognition_System\college_images\face_detector1.jpg")
+        img5 = Image.open(r"college_images\face_detector1.jpg")
         img5 = img5.resize((150,150),Image.ANTIALIAS)
         self.photoing5 = ImageTk.PhotoImage(img5)
         
@@ -75,7 +77,7 @@ class Face_Recognition_System:
         
         
         #attendance button
-        img6 = Image.open(r"H:\Face_Recognition_System\college_images\report.jpg")
+        img6 = Image.open(r"college_images\report.jpg")
         img6 = img6.resize((150,150),Image.ANTIALIAS)
         self.photoing6 = ImageTk.PhotoImage(img6)
         
@@ -87,7 +89,7 @@ class Face_Recognition_System:
         
         
         #help button
-        img7 = Image.open(r"H:\Face_Recognition_System\college_images\help-desk.jpg")
+        img7 = Image.open(r"college_images\help-desk.jpg")
         img7 = img7.resize((150,150),Image.ANTIALIAS)
         self.photoing7 = ImageTk.PhotoImage(img7)
         
@@ -99,31 +101,31 @@ class Face_Recognition_System:
         
         
         #train face button
-        img8 = Image.open(r"H:\Face_Recognition_System\college_images\Train.jpg")
+        img8 = Image.open(r"college_images\Train.jpg")
         img8 = img8.resize((150,150),Image.ANTIALIAS)
         self.photoing8 = ImageTk.PhotoImage(img8)
         
-        b1 = Button(bg_img, image = self.photoing8, cursor = "hand2")
+        b1 = Button(bg_img, image = self.photoing8, cursor = "hand2", command= self.train_data)
         b1.place(x=120, y = 300, width = 150, height = 150)
         
-        b1_1 = Button(bg_img, text = "Train Data", cursor = "hand2", font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
+        b1_1 = Button(bg_img, text = "Train Data", cursor = "hand2", command= self.train_data, font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
         b1_1.place(x=120, y = 410, width = 150, height = 40)
         
         
         #photos face button
-        img9 = Image.open(r"H:\Face_Recognition_System\college_images\photo-face.png")
+        img9 = Image.open(r"college_images\photo-face.png")
         img9 = img9.resize((150,150),Image.ANTIALIAS)
         self.photoing9 = ImageTk.PhotoImage(img9)
         
-        b1 = Button(bg_img, image = self.photoing9, cursor = "hand2")
+        b1 = Button(bg_img, image = self.photoing9, cursor = "hand2", command=self.open_img)
         b1.place(x=390, y = 300, width = 150, height = 150)
         
-        b1_1 = Button(bg_img, text = "Photos", cursor = "hand2", font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
+        b1_1 = Button(bg_img, text = "Photos", cursor = "hand2", command=self.open_img, font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
         b1_1.place(x=390, y = 410, width = 150, height = 40)
         
         
         #Developer button
-        img10 = Image.open(r"H:\Face_Recognition_System\college_images\Team-Management-Software-Development.jpg")
+        img10 = Image.open(r"college_images\Team-Management-Software-Development.jpg")
         img10 = img10.resize((150,150),Image.ANTIALIAS)
         self.photoing10 = ImageTk.PhotoImage(img10)
         
@@ -135,7 +137,7 @@ class Face_Recognition_System:
         
         
         #exit button
-        img11 = Image.open(r"H:\Face_Recognition_System\college_images\exit.jpg")
+        img11 = Image.open(r"college_images\exit.jpg")
         img11 = img11.resize((150,150),Image.ANTIALIAS)
         self.photoing11 = ImageTk.PhotoImage(img11)
         
@@ -146,10 +148,21 @@ class Face_Recognition_System:
         b1_1.place(x=950, y = 410, width = 150, height = 40)
         
         
+    
+    def open_img(self):
+        os.startfile("data")
+        
+        
+        
+        
     #Function button
     def student_details(self):
         self.new_window=Toplevel(self.root)
         self.app=Student(self.new_window)
+        
+    def train_data(self):
+        self.new_window=Toplevel(self.root)
+        self.app=Train(self.new_window)
         
         
 

@@ -506,7 +506,7 @@ class Student:
                         file_name_path = "data/user."+str(id)+"."+str(img_id)+".jpg"
                         cv2.imwrite(file_name_path, face)
                         cv2.putText(face, str(img_id), (50, 50), cv2.FONT_HERSHEY_COMPLEX,2,(0,255,0),2)
-                        cv2.imshow("Ảnh", face)
+                        cv2.imshow("Cropped Face", face)
                     
                     if cv2.waitKey(1) == 13 or int(img_id) == 100:
                         break

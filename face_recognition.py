@@ -6,6 +6,8 @@ import mysql.connector
 import cv2
 import os
 import numpy as np
+from time import strftime
+from datetime import datetime
 
 class Face_Recognition:
     def __init__(self,root):
@@ -32,8 +34,23 @@ class Face_Recognition:
         f_lbl.place(x=600,y=60,width=600, height=480)
         
         
-        b1_1 = Button(f_lbl, text = "Nhận dạng khuôn mặt", cursor = "hand2", font=("times new roman", 12, "bold"), bg="darkgreen", fg="white")
+        b1_1 = Button(f_lbl, text = "Nhận dạng khuôn mặt", command=self.face_recog, cursor = "hand2", font=("times new roman", 12, "bold"), bg="darkgreen", fg="white")
         b1_1.place(x=218, y = 425, width = 155, height = 25)
+        
+        
+    #attendance----------------
+    def mark_attendance(self, i, c, n, d):
+        with open("cuong.csv","r+",newline="\n") as f:
+            myDataList=f.readLines()
+            name_list=[]
+            for line in myDataList:
+                entry=line.split((","))
+                name_list.append(entry[0])
+            if((i not in name_list) and (c not in name_list) and (n not in name_list) and (d not in name_list)):
+                now=datetime.now()
+                d1=now.strftime("%d/%m/%Y")
+                dtString=now.strftime("%H:%M:%S")
+                f.writelines(f"\n{i},{c},{n},{d},{dtString},{d1},Preset")
         
         
     #face recognition------------------------
@@ -64,13 +81,19 @@ class Face_Recognition:
                 d=my_cursor.fetchone()
                 d="+".join(d)
                 
+                my_cursor.execute("select studentID from student where studentID="+str(id))
+                i=my_cursor.fetchone()
+                i="+".join(i)
+                
                 if confidence>77:
+                    cv2.putText(img,f"MSSV:{i}",(x,y-75), cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
                     cv2.putText(img,f"Lớp:{c}",(x,y-55), cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
                     cv2.putText(img,f"Họ và tên:{n}",(x,y-30), cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
                     cv2.putText(img,f"Chuyên ngành:{d}",(x,y-5), cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
+                    self.mark_attendance(i,c,n,d)
                 else:
                     cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),3)
-                    cv2.putText(img,"Khuôn mặt không xác định",(x,y-5), cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
+                    cv2.putText(img,"Unknown Face",(x,y-5), cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
                 
                 coord=[x,y,w,y]
         

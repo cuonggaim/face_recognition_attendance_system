@@ -6,6 +6,8 @@ from student import Student
 import os
 from train import Train
 from face_recognition import Face_Recognition
+from attendance import Attendance
+from developer import Developer
 
 class Face_Recognition_System:
     def __init__(self,root):
@@ -82,10 +84,10 @@ class Face_Recognition_System:
         img6 = img6.resize((150,150),Image.ANTIALIAS)
         self.photoing6 = ImageTk.PhotoImage(img6)
         
-        b1 = Button(bg_img, image = self.photoing6, cursor = "hand2")
+        b1 = Button(bg_img, image = self.photoing6, cursor = "hand2", command= self.attendance_data)
         b1.place(x=660, y = 100, width = 150, height = 150)
         
-        b1_1 = Button(bg_img, text = "Attendance", cursor = "hand2", font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
+        b1_1 = Button(bg_img, text = "Attendance", cursor = "hand2", command= self.attendance_data, font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
         b1_1.place(x=660, y = 210, width = 150, height = 40)
         
         
@@ -130,10 +132,10 @@ class Face_Recognition_System:
         img10 = img10.resize((150,150),Image.ANTIALIAS)
         self.photoing10 = ImageTk.PhotoImage(img10)
         
-        b1 = Button(bg_img, image = self.photoing10, cursor = "hand2")
+        b1 = Button(bg_img, image = self.photoing10, cursor = "hand2",command= self.for_developer)
         b1.place(x=660, y = 300, width = 150, height = 150)
         
-        b1_1 = Button(bg_img, text = "Developer", cursor = "hand2", font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
+        b1_1 = Button(bg_img, text = "Developer", cursor = "hand2",command= self.for_developer, font=("times new roman", 15, "bold"), bg="darkblue", fg="white")
         b1_1.place(x=660, y = 410, width = 150, height = 40)
         
         
@@ -168,6 +170,14 @@ class Face_Recognition_System:
     def face_recognition(self):
         self.new_window=Toplevel(self.root)
         self.app=Face_Recognition(self.new_window)
+        
+    def attendance_data(self):
+        self.new_window=Toplevel(self.root)
+        self.app=Attendance(self.new_window)
+        
+    def for_developer(self):
+        self.new_window=Toplevel(self.root)
+        self.app=Developer(self.new_window)
         
         
 
